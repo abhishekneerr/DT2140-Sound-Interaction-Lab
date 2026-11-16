@@ -56,6 +56,9 @@ function accelerationChange(accx, accy, accz) {
 }
 
 function rotationChange(rotx, roty, rotz) {
+    if (!dspNode || audioContext.state === 'suspended') return;
+    const force = map(abs(roty), 0, 90, 0, 1, true);
+    dspNode.setParamValue("/wind/wind/force", force);
 }
 
 function mousePressed() {
@@ -74,7 +77,7 @@ function deviceTurned() {
 function deviceShaken() {
     shaketimer = millis();
     statusLabels[0].style("color", "pink");
-    playAudio();
+    // playAudio();
 }
 
 function getMinMaxParam(address) {
@@ -102,8 +105,8 @@ function playAudio() {
     if (audioContext.state === 'suspended') {
         return;
     }
-    dspNode.setParamValue("/englishBell/gate", 1)
-    setTimeout(() => { dspNode.setParamValue("/englishBell/gate", 0) }, 100);
+    dspNode.setParamValue("/wind/wind/force", 1)
+    setTimeout(() => { dspNode.setParamValue("/wind/wind/force", 0) }, 100);
 }
 
 //==========================================================================================
