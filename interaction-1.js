@@ -55,8 +55,23 @@ function accelerationChange(accx, accy, accz) {
     // playAudio()
 }
 
+let bellFired = false;   // remembers if the bell already rang for this tilt
 function rotationChange(rotx, roty, rotz) {
+    if (!dspNode) return;            // DSP not loaded yet
+
+    // Ring once when the tilt passes the trigger point
+    if (rotx > 1 && !bellFired) {
+        playAudio();                 // presses /englishBell/gate
+        bellFired = true;
+    }
+
+    // Re-arm once the phone is tilted back
+    if (rotx < 0.5) {
+        bellFired = false;
+    }
 }
+
+
 
 function mousePressed() {
     playAudio()
