@@ -60,13 +60,13 @@ function rotationChange(rotx, roty, rotz) {
     if (!dspNode) return;            // DSP not loaded yet
 
     // Ring once when the tilt passes the trigger point
-    if (rotx > 1 && !bellFired) {
+    if (rotz > 90 && !bellFired) {
         playAudio();                 // presses /englishBell/gate
         bellFired = true;
     }
 
     // Re-arm once the phone is tilted back
-    if (rotx < 0.5) {
+    if (rotz < 90) {
         bellFired = false;
     }
 }
