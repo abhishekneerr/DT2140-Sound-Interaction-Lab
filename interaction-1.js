@@ -58,11 +58,11 @@ function accelerationChange(accx, accy, accz) {
 let bellFired = false;   // remembers if the bell already rang for this tilt
 function rotationChange(rotx, roty, rotz) {
     if (!dspNode) return;          
-    if (rotz > 90 && !bellFired) {
+    if (rotx > 45 && !bellFired) {
         playAudio();           
         bellFired = true;
     }
-    if (rotz < 90) {
+    if (rotx < 45) {
         bellFired = false;
     }
 }
